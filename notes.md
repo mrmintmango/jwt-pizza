@@ -6,26 +6,14 @@ As part of `Deliverable ⓵ Development deployment: JWT Pizza`, start up the app
 
 | User activity                                       | Frontend component | Backend endpoints | Database SQL |
 | --------------------------------------------------- | ------------------ | ----------------- | ------------ |
-| View home page                                      |   ⦁	App.tsx        |                   |              | 
-|                                                     |   ⦁	Quote.tsx      |                   |              |
-|                                                     |   ⦁	Footer.tsx     |                   |              |
-|                                                     |   ⦁	VM330          |                   |              |
-|                                                     |   ⦁	Content.js     |                   |              |
-|                                                     |   ⦁	Index.tsx      |                   |              |
-|                                                     |   ⦁	Header.tsx     |                   |              |
-|                                                     |   ⦁	Icons.tsx      |                   |              |
-|                                                     |   ⦁	Breadcrumbs.tsx|                   |              |
-|                                                     |   ⦁	Home.tsx       |                   |              |
-|                                                     |   ⦁	View.tsx       |                   |              |
-|                                                     |   ⦁	Buttons.tsx    |                   |              |
-|                                                     |   ⦁	Carousel.tsx   |                   |              |
-| Register new user<br/>(t@jwt.com, pw: test)         |                    |                   |              |
-| Login new user<br/>(t@jwt.com, pw: test)            |                    |                   |              |
+| View home page                                      |   ⦁	Home.tsx       |        none       |     none     | 
+| Register new user<br/>(t@jwt.com, pw: test)         |     register.tsx   |'/api/auth', 'POST'|INSERT INTO user (name, email, password) VALUES (?, ?, ?)<br> INSERT INTO userRole (userId, role, objectId) VALUES (?, ?, ?)|
+| Login new user<br/>(t@jwt.com, pw: test)            |    login.tsx       |'/api/auth', 'PUT' |"SELECT * FROM user WHERE email=?" <br> "SELECT * FROM userRole WHERE userId=?" <br> "INSERT INTO auth (token, userId) VALUES (?, ?) ON DUPLICATE KEY UPDATE token=token" <br>               |
 | Order pizza                                         |                    |                   |              |
 | Verify pizza                                        |                    |                   |              |
 | View profile page                                   |                    |                   |              |
 | View franchise<br/>(as diner)                       |                    |                   |              |
-| Logout                                              |                    |                   |              |
+| Logout                                              |    logout.tsx      | '/api/auth', 'DELETE' | "SELECT userId FROM auth WHERE token=?" <br> "DELETE FROM auth WHERE token=?"   |
 | View About page                                     |                    |                   |              |
 | View History page                                   |                    |                   |              |
 | Login as franchisee<br/>(f@jwt.com, pw: franchisee) |                    |                   |              |
