@@ -226,4 +226,3 @@ test('register new user', async ({ page }) => {
   // Should be redirected to home page with Order now button
   await expect(page.getByRole('button', { name: 'Order now' })).toBeVisible();
 });
-
