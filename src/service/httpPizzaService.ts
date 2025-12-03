@@ -125,6 +125,12 @@ class HttpPizzaService implements PizzaService {
   }
 
   async docs(docType: string): Promise<Endpoints> {
+    // Security: Strict whitelist validation to prevent path traversal
+    const allowedDocTypes = ['factory', 'service'];
+    if (!allowedDocTypes.includes(docType)) {
+      docType = 'service'; // Default to safe value
+    }
+    
     if (docType === 'factory') {
       return this.callEndpoint(pizzaFactoryUrl + `/api/docs`);
     }

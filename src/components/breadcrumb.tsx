@@ -8,14 +8,22 @@ interface Props {
 
 export default function Breadcrumb(props: Props) {
   let currentPath = '';
+  
+  // Security: Sanitize path segments to prevent XSS and path traversal
+  const sanitizePath = (pathSegment: string): string => {
+    // Remove any path traversal attempts and special characters
+    return pathSegment.replace(/\.\./g, '').replace(/[<>"']/g, '').trim();
+  };
+  
   const paths = props.location.split('/').map((path) => {
-    currentPath += '/' + path;
+    const sanitizedPath = sanitizePath(path);
+    currentPath += '/' + sanitizedPath;
     return (
-      <li key={path} className="inline-flex items-center text-sm font-semibold text-gray-800 truncate" aria-current="page">
+      <li key={sanitizedPath} className="inline-flex items-center text-sm font-semibold text-gray-800 truncate" aria-current="page">
         <GreaterThanIcon />
 
         <NavLink className="flex items-center text-sm text-gray-600 hover:text-blue-600 focus:outline-none focus:text-blue-600" to={currentPath}>
-          {path}
+          {sanitizedPath}
         </NavLink>
       </li>
     );

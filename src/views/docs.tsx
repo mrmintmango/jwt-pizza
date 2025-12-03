@@ -12,11 +12,16 @@ const apis = [
 const Docs = () => {
   const { docType } = useParams();
   const [docs, setDocs] = React.useState<Endpoints>({ endpoints: [] });
+  
+  // Security: Whitelist allowed doc types to prevent path traversal
+  const allowedDocTypes = ['factory', 'service'];
+  const sanitizedDocType = docType && allowedDocTypes.includes(docType) ? docType : 'service';
+  
   React.useEffect(() => {
     (async () => {
-      setDocs(await pizzaService.docs(docType!));
+      setDocs(await pizzaService.docs(sanitizedDocType));
     })();
-  }, []);
+  }, [sanitizedDocType]);
 
   return (
     <View title="JWT Pizza API">
