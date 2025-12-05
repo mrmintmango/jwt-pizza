@@ -62,6 +62,11 @@ export default function AdminDashboard(props: Props) {
   }
 
   async function deleteUser(userId: string) {
+    // Security: Require explicit confirmation for destructive actions
+    if (!confirm('Are you sure you want to permanently delete this user? This action cannot be undone.')) {
+      return;
+    }
+    
     try {
       await pizzaService.deleteUser(userId);
       // Refresh user list
@@ -73,6 +78,7 @@ export default function AdminDashboard(props: Props) {
   }
 
   let response = <NotFound />;
+  // Security Warning: This is client-side only. Backend MUST verify admin role on ALL API endpoints
   if (Role.isRole(props.user, Role.Admin)) {
     response = (
       <View title="Mama Ricci's kitchen">

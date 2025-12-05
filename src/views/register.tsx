@@ -29,8 +29,10 @@ export default function Register(props: Props) {
     try {
       props.setUser(await pizzaService.register(name, email, password));
       navigateToParentPath();
-    } catch (error) {
-      displayMessage(JSON.stringify(error));
+    } catch (error: any) {
+      // Security: Don't expose detailed error information
+      const userMessage = error?.message || 'Registration failed. Please try again.';
+      displayMessage(userMessage);
     }
   }
 

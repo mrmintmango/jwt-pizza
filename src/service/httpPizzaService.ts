@@ -17,6 +17,8 @@ class HttpPizzaService implements PizzaService {
 
         const authToken = localStorage.getItem('token');
         if (authToken) {
+          // Security: Check if token exists and add to headers
+          // Note: Token expiration should be validated server-side
           options.headers['Authorization'] = `Bearer ${authToken}`;
         }
 
@@ -30,13 +32,24 @@ class HttpPizzaService implements PizzaService {
 
         const r = await fetch(path, options);
         const j = await r.json();
+        
         if (r.ok) {
           resolve(j);
         } else {
-          reject({ code: r.status, message: j.message });
+          // Security: Handle 401 Unauthorized globally - clear invalid tokens
+          if (r.status === 401) {
+            localStorage.removeItem('token');
+          }
+          // Security: Don't expose internal error details to prevent information leakage
+          const sanitizedMessage = r.status === 401 ? 'Authentication required' : 
+                                   r.status === 403 ? 'Access denied' :
+                                   r.status >= 500 ? 'Service temporarily unavailable' :
+                                   j.message || 'Request failed';
+          reject({ code: r.status, message: sanitizedMessage });
         }
       } catch (e: any) {
-        reject({ code: 500, message: e.message });
+        // Security: Don't expose system errors
+        reject({ code: 500, message: 'An error occurred. Please try again.' });
       }
     });
   }
@@ -53,9 +66,17 @@ class HttpPizzaService implements PizzaService {
     return Promise.resolve(user);
   }
 
-  logout(): void {
-    this.callEndpoint('/api/auth', 'DELETE');
-    localStorage.removeItem('token');
+  async logout(): Promise<void> {
+    // Security: Ensure token is cleared even if server request fails
+    try {
+      await this.callEndpoint('/api/auth', 'DELETE');
+    } catch (error) {
+      // Log error but continue with client-side cleanup
+      console.error('Logout request failed:', error);
+    } finally {
+      // Always clear token from storage
+      localStorage.removeItem('token');
+    }
   }
 
   async getUser(): Promise<User | null> {

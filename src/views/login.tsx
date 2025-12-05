@@ -28,8 +28,10 @@ export default function Login(props: Props) {
     try {
       props.setUser(await pizzaService.login(email, password));
       navigateToParent();
-    } catch (error) {
-      displayMessage(JSON.stringify(error));
+    } catch (error: any) {
+      // Security: Don't expose detailed error information
+      const userMessage = error?.message || 'Login failed. Please check your credentials and try again.';
+      displayMessage(userMessage);
     }
   }
 

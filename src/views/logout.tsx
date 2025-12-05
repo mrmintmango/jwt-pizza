@@ -12,9 +12,11 @@ export default function Logout(props: Props) {
   const navigate = useNavigate();
 
   React.useEffect(() => {
-    pizzaService.logout();
-    props.setUser(null);
-    navigate('/');
+    (async () => {
+      await pizzaService.logout();
+      props.setUser(null);
+      navigate('/');
+    })();
   }, []);
 
   return (
