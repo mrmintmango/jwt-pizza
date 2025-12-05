@@ -48,7 +48,7 @@
 | Target         | pizza.theGameVault.click                                                       |
 | Classification | Broken access control                                                                  |
 | Severity       | 3                                                                              |
-| Description    | I'll be honest, I don't know how I would go about doing this one, but in the pizza service it's set up so any user can delete any other user, including admins                         |
+| Description    | I'll be honest, I don't know how I would go about doing this one, but in the pizza service it's set up so any user can delete any other user, including admins. If someone uses a tool like Burp Suite, they can get a list of all users without being an admin and can even delete any user without authorization.                          |
 | Images         | no pic                                                    |
 | Corrections    | Add authorizition in backend to only allow admins to delete users, or for users to delete themselves (deleting an account)       |
 
@@ -59,7 +59,7 @@
 | Target         | pizza.theGameVault.click                                                       |
 | Classification | SQL Injection                                                                  |
 | Severity       | 1                                                                              |
-| Description    | SQL injection can delete the database or mess with all user info                        |
+| Description    | SQL injection can delete the database or mess with all user info, I saw where it could happen and the code clearly showed vulnerabilities, but I didn't want to go through the hassle of wrecking my db and trying to recreate it again. It was found in the update user info fields and creating user info fields.                        |
 | Images         | no pic                                                    |
 | Corrections    | Sanatized user inputs in the backend to prevent this      |
 
