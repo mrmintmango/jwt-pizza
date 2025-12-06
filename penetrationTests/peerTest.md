@@ -1,4 +1,9 @@
-## Attack Report
+# Security Assessment Report
+
+**Report Dates:** December 3–5, 2025  
+**Targets Tested:** `pizza.skycs329.click`, `pizza.thegamevault.click`
+
+---
 
 # Peers:
 - Skyler Williams
@@ -67,6 +72,89 @@
 
 # Self Attack Records (Skyler Williams)
 
+## Security Misconfiguration — Admin Password Guessed
+
+| Item                   | Result                 | Date             | Target               | Classification            | Severity |
+| ---------------------- | ---------------------- | ---------------- | -------------------- | ------------------------- | -------- |
+| Admin Password Guessed | Admin password guessed | December 4, 2025 | pizza.skycs329.click | Security Misconfiguration | 4        |
+
+**Description**  
+Admin password guessed. Hacker able to access private information and manage data they shouldn’t.
+
+**Images**  
+![Alt text](1.png)
+
+**Corrections**  
+Changed passwords from their default.
+
+---
+
+## Broken Access Control — Delete Any User With Valid Token
+
+| Item                  | Result                                     | Date             | Target               | Classification        | Severity |
+| --------------------- | ------------------------------------------ | ---------------- | -------------------- | --------------------- | -------- |
+| Delete Arbitrary User | Able to delete any user with a valid token | December 4, 2025 | pizza.skycs329.click | Broken Access Control | 3        |
+
+**Description**  
+Able to delete whatever users I want with a valid token.
+
+**Images**  
+![Alt text](2.png)
+
+**Corrections**  
+Added role validation before allowing deletion.
+
+---
+
+## Broken Access Control — Delete Any Franchise
+
+| Item                       | Result                       | Date             | Target               | Classification        | Severity |
+| -------------------------- | ---------------------------- | ---------------- | -------------------- | --------------------- | -------- |
+| Delete Arbitrary Franchise | Able to delete any franchise | December 4, 2025 | pizza.skycs329.click | Broken Access Control | 3        |
+
+**Description**  
+Able to delete whatever franchise I want.
+
+**Images**  
+![Alt text](3a.png)
+![Alt text](3b.png)
+
+**Corrections**  
+Added role + auth token validation before allowing deletion.
+
+---
+
+## Improper Session Management — Auth Token in Local Storage
+
+| Item                                | Result             | Date             | Target               | Classification              | Severity |
+| ----------------------------------- | ------------------ | ---------------- | -------------------- | --------------------------- | -------- |
+| Auth Token Visible in Local Storage | Auth token visible | December 4, 2025 | pizza.skycs329.click | Improper Session Management | 1        |
+
+**Description**  
+Able to see a user’s auth token in local storage.
+
+**Images**  
+![Alt text](4.png)
+
+**Corrections**  
+Ensured no one can access anything with a broken or exposed auth token.
+
+---
+
+## Server-Side Request Forgery (SSRF) — Franchise Info Accessible
+
+| Item                             | Result                         | Date             | Target               | Classification              | Severity |
+| -------------------------------- | ------------------------------ | ---------------- | -------------------- | --------------------------- | -------- |
+| SSRF — Franchise Info Accessible | Able to request franchise info | December 4, 2025 | pizza.skycs329.click | Server Side Request Forgery | 2        |
+
+**Description**  
+Able to request the franchises and see the info that goes with them.
+
+**Images**  
+![Alt text](5.png)
+
+**Corrections**  
+Added auth token requirement to access stores.
 
 
 # Peer Attack Records (Ruben Matos --> Skyler Williams)
@@ -116,3 +204,98 @@
 | Description    | I attempted a simple SQL Injection attack but it failed, good job! I couldn't hit the submit button with SQL code in the user input field.                |
 | Images         | ![path traversal screenshot](./Screenshot%202025-12-05%20194415.png "image")                                                       |
 | Corrections    | Already corrected                                        |
+
+
+# Peer Attack Records (Skyler Williams --> Ruben Matos)
+
+## Security Misconfiguration — Franchisee Password Guessed
+
+| Item                        | Result           | Date             | Target                   | Classification            | Severity |
+| --------------------------- | ---------------- | ---------------- | ------------------------ | ------------------------- | -------- |
+| Franchisee Password Guessed | Password guessed | December 5, 2025 | pizza.thegamevault.click | Security Misconfiguration | 4        |
+
+**Description**  
+Franchisee password guessed. Hacker able to access private information and manage data they shouldn’t.
+
+**Images**  
+![Alt text](6.png)
+
+**Corrections**  
+(Not specified)
+
+---
+
+## Broken Access Control — User Deletion Not Possible (PASS)
+
+| Item                  | Result                   | Date             | Target                   | Classification        | Severity |
+| --------------------- | ------------------------ | ---------------- | ------------------------ | --------------------- | -------- |
+| User Deletion Attempt | Not able to delete users | December 5, 2025 | pizza.thegamevault.click | Broken Access Control | 0        |
+
+**Description**  
+Attempting to delete users failed — expected behavior.
+
+**Images**  
+![Alt text](7.png)
+
+**Corrections**  
+None required.
+
+---
+
+## Broken Access Control — Delete Any Franchise
+
+| Item                       | Result                       | Date             | Target                   | Classification        | Severity |
+| -------------------------- | ---------------------------- | ---------------- | ------------------------ | --------------------- | -------- |
+| Delete Arbitrary Franchise | Able to delete any franchise | December 5, 2025 | pizza.thegamevault.click | Broken Access Control | 3        |
+
+**Description**  
+Able to delete whatever franchise I want.
+
+**Images**  
+![Alt text](8a.png)
+![Alt text](8b.png)
+
+**Corrections**  
+(Not specified)
+
+---
+
+## Improper Session Management — Auth Token in Local Storage
+
+| Item                                | Result             | Date             | Target                   | Classification              | Severity |
+| ----------------------------------- | ------------------ | ---------------- | ------------------------ | --------------------------- | -------- |
+| Auth Token Visible in Local Storage | Auth token visible | December 5, 2025 | pizza.thegamevault.click | Improper Session Management | 1        |
+
+**Description**  
+Able to see a user’s auth token in local storage.
+
+**Images**  
+![Alt text](9.png)
+
+**Corrections**  
+(Not specified)
+
+---
+
+## Server-Side Request Forgery (SSRF) — Franchise Info Accessible
+
+| Item                             | Result                         | Date             | Target               | Classification              | Severity |
+| -------------------------------- | ------------------------------ | ---------------- | -------------------- | --------------------------- | -------- |
+| SSRF — Franchise Info Accessible | Able to request franchise info | December 4, 2025 | pizza.skycs329.click | Server Side Request Forgery | 2        |
+
+**Description**  
+Able to request the franchises and see the info that goes with them.
+
+**Images**  
+![Alt text](10.png)
+
+**Corrections**  
+Added auth token requirement.
+
+
+
+# Sumarry
+This was a fun assignment to see how many ways there are to hack into someones site. It helped me see that as a developer, I need to take security seriously, especially when dealing with other peoples information. Thinking like a hacker really did help me view my code in a different light and see the vulnerabilites there. I'll definitely be taking the things I've learned here into my work and future career. 
+
+This assignment taught me the importance of securing my information and what a random user can access. Not everything may be apparent on the
+outside, but testing and penetrating my own website as well as the experience of attacking someone elses website I was able to see that it is important to secure your own data. I also noticed the power of using the terminal and curl commands to access data that should be safe on the backend.
