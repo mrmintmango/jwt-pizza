@@ -63,3 +63,56 @@
 | Images         | no pic                                                    |
 | Corrections    | Sanatized user inputs in the backend to prevent this      |
 
+
+
+# Self Attack Records (Skyler Williams)
+
+
+
+# Peer Attack Records (Ruben Matos --> Skyler Williams)
+
+| Item           | Result                                                                         |
+| -------------- | ------------------------------------------------------------------------------ |
+| Date           | December 5, 2025                                                               |
+| Target         | https://pizza.skycs329.click                                                   |
+| Classification | Information Disclosure                                                         |
+| Severity       | 3                                                                              |
+| Description    | Homie never changed the admin password from being "admin" (*hacker voice*: I'm in)            |
+| Images         | ![info disclosure screenshot](./Screenshot%202025-12-05%20091158.png "image")                                                          |
+| Corrections    | change the password                                |
+
+
+
+| Item           | Result                                                                         |
+| -------------- | ------------------------------------------------------------------------------ |
+| Date           | December 5, 2025                                                               |
+| Target         | https://pizza.skycs329.click                                                   |
+| Classification | Path Traversal                                                                 |
+| Severity       | 2                                                                              |
+| Description    | Docs were completely open to anyone to access by simply typing /docs in the url path. I had a solid documentation for all api endpoints which could easily be exploited.              |
+| Images         | ![path traversal screenshot](./Screenshot%202025-12-05%20184238.png "image")                                                       |
+| Corrections    | ensure your docs are more secure and check for sneaky path vulnerabilities.          |
+
+
+
+| Item           | Result                                                                         |
+| -------------- | ------------------------------------------------------------------------------ |
+| Date           | December 5, 2025                                                               |
+| Target         | https://pizza.skycs329.click                                                   |
+| Classification | Broken Access Control                                                          |
+| Severity       | 2                                                                              |
+| Description    | By using Burp Suite I can change the price of the pizzas I order and still get a valid JWT Pizza token without paying anything.               |
+| Images         | ![path traversal screenshot](./Screenshot%202025-12-05%20185340.png "image")                                                       |
+| Corrections    | I don't know how you'd fix this one tbh                                        |
+
+
+
+| Item           | Result                                                                         |
+| -------------- | ------------------------------------------------------------------------------ |
+| Date           | December 5, 2025                                                               |
+| Target         | https://pizza.skycs329.click                                                   |
+| Classification | SQL Injection                                                          |
+| Severity       | -                                                                              |
+| Description    | I attempted a simple SQL Injection attack but it failed, good job! I couldn't hit the submit button with SQL code in the user input field.                |
+| Images         | ![path traversal screenshot](./Screenshot%202025-12-05%20194415.png "image")                                                       |
+| Corrections    | Already corrected                                        |
